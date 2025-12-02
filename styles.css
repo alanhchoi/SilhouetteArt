@@ -49,39 +49,6 @@ body {
    Sticky Header / Global Layout
 --------------------------------------------------- */
 
-/* Identify button - positioned top right above gallery */
-.identify-btn {
-  position: absolute;
-  top: 65px;
-  right: 24px;
-  padding: 12px 24px;
-  /* background-color: rgba(190, 0, 0, 0.9); */
-  color: #ffffff;
-  border: none;
-  background-color: #000;
-
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: 400;
-  transition: background-color 0.3s ease;
-  z-index: 10;
-  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.2);
-}
-
-/* .identify-btn a {
-  color: #ffffff;
-  text-decoration: none;
-} */
-
-.identify-btn:hover {
-  transform: translateY(-1px);
-}
-
-.identify-btn.hidden {
-  display: none;
-}
-
 @media (max-width: 768px) {
   .identify-btn {
     top: 60px;

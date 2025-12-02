@@ -269,9 +269,10 @@
         const identifyBtn = document.getElementById("identify-btn");
         if (identifyBtn) {
           if (v === "unidentified") {
-            identifyBtn.classList.remove("hidden");
+            // identifyBtn.classList.remove("hidden");
+            identifyBtn.disabled = false;
           } else {
-            identifyBtn.classList.add("hidden");
+            identifyBtn.disabled = true;
           }
         }
 
@@ -414,24 +415,7 @@
         cardEl.textContent = text;
       }
     }
-
-    const html = items
-      .map((r) => {
-        const alt = field(r, "title") || field(r, "name") || "silhouette";
-        const fn = field(r, "filename");
-        return `
-          <div class="gallery-item">
-            <img class="gallery-img"
-                 src="${r.thumbnail}"
-                 alt="${alt.replace(/"/g, "")}"
-                 data-filename="${fn}"
-                 loading="lazy">
-          </div>
-        `;
-      })
-      .join("");
-
-    //////////////////LOAD IMAGES FROM LOCAL THUMBNAILS FOLDER INSTEAD////////////////////
+    //////////////////LOAD IMAGES FROM URL INSTEAD////////////////////
     // const html = items
     //   .map((r) => {
     //     const alt = field(r, "title") || field(r, "name") || "silhouette";
@@ -439,7 +423,7 @@
     //     return `
     //       <div class="gallery-item">
     //         <img class="gallery-img"
-    //              src="./thumbnails/${r.filename}.jpg"
+    //              src="${r.thumbnail}"
     //              alt="${alt.replace(/"/g, "")}"
     //              data-filename="${fn}"
     //              loading="lazy">
@@ -447,6 +431,27 @@
     //     `;
     //   })
     //   .join("");
+
+    //////////////////LOAD IMAGES FROM LOCAL THUMBNAILS FOLDER INSTEAD////////////////////
+    const html = items
+      .map((r) => {
+        const alt = field(r, "title") || field(r, "name") || "silhouette";
+        const fn = field(r, "filename");
+        if (r.filename == null || r.filename == undefined) {
+          console.log("Missing filename for record:", r);
+          // return "";
+        }
+        return `
+          <div class="gallery-item">
+            <img class="gallery-img"
+                 src="./thumbnails-small/${r.filename}.jpg"
+                 alt="${alt.replace(/"/g, "")}"
+                 data-filename="${fn}"
+                 loading="lazy">
+          </div>
+        `;
+      })
+      .join("");
 
     grid.innerHTML = html;
     updateScrollCard(); // Add this at the end
