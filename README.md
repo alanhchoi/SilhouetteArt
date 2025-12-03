@@ -4,7 +4,7 @@
 
 https://narmanios.github.io/SilhouetteArt/index.html
 
-'Silhouette Art of Early America' is a data visualization inspired by the work of William Bache. It explores almost 2,000 of his silhouettes. Inexpensive to create his sitters could keep them as mementos, share with family or place inside a locket. The sitters include unidentified as well as named men, women and children. Like many similar silhouette artisans', one of the techniques involved carefully tracing a person's profile using a device called a physiognotrace. The outlines and ‘tracing’ of these profiles is visualized in this project. Any combination of silhouettes can be selected and explored.
+'Silhouette Art of Early America' is a data visualization inspired by the work of William Bache. It explores over 1800 of his silhouettes. Inexpensive to create his sitters could keep them as mementos, share with family or place them inside a locket. The sitters include unidentified as well as named men, women and children. Like many similar silhouette artisans', one of the techniques involved carefully tracing a person's profile using a device called a physiognotrace. The outlines and ‘tracing’ of these profiles is visualized in this project. Any combination of silhouettes can be selected and explored.
 
 ![Homescreen](screenshots/landing.jpg)
 <br />
@@ -20,20 +20,35 @@ https://narmanios.github.io/SilhouetteArt/index.html
 
 ![Tracing of a collection](screenshots/trace2.jpg)
 
-#### Work in Progress: With your device's camera, you can create your own silhouette.
-
 ![Your silhouette](screenshots/selfie.jpg)
+
+![Your silhouette](screenshots/unidentified-AI.jpg)
 
 ---
 
-#### Neven Armanios, Major Studio 1, Fall 2025.
+### Thanks & credits
 
-## Data
+This digital project is inspired by work supported through the Getty Foundation’s Paper
+Project initiative. It draws upon materials from the Smithsonian Institution’s Open Access collections, including the digitized ledger book of silhouette artist William Bache (ca.1803–1812) and his silhouette album held by the National Portrait Gallery. The Bache album of portraits of early nineteenth century sitters was fully digitized thanks to Getty support and the National Portrait Gallery’s ongoing conservation and research efforts.
 
-#### Images used in this project are from the collections of the Smithsonian American Art Museum, Washington, D.C.
+#### Bache Album information
 
-https://huggingface.co/datasets/RevolutionCrossroads/si_us_revolutionary_era_collections/sql-console/_jKV43s
+https://npg.si.edu/bache/">https://npg.si.edu/bache/
 
-#### Thiago Herson, The New School: Parsons School of Design, ML generated outlined silhouettes.
+#### Dataset
 
-https://huggingface.co/datasets/visualizedata/revolutionary_silhouettes/tree/main/json
+In addition, this project utilises the Smithsonian Revolutionary Era Collections dataset, a curated subset of the Smithsonian’s Open Access corpus created by the Revolution Crossroads initiative. The dataset brings together 12,667 records and nearly 3,941 linked images of objects dating from 1770–1810, drawn from four Smithsonian museums: the National Museum of American History, the National Postal Museum, the Smithsonian American Art Museum, and the National Portrait Gallery.
+
+https://huggingface.co/RevolutionCrossroads">https://huggingface.co/RevolutionCrossroads
+
+#### Neven Armanios, Data Visualization, Major Studio 1, Fall 2025.
+
+#### Thiago Herson, Assistant Professor, The New School: Parsons School of Design.
+
+Silhouette outline extraction using OpenCV edge detection.
+
+href="https://github.com/PGDV-5200-2025F-A/silhouettes">https://github.com/PGDV-5200-2025F-A/silhouettes
+
+#### Hue Huynh, Data Engineer.
+
+Integration with huggingface and OpenAI APIs for silhouette and color image generation.
