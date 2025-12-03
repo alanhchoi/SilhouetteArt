@@ -49,14 +49,14 @@ body {
    Sticky Header / Global Layout
 --------------------------------------------------- */
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .identify-btn {
     top: 60px;
     right: 16px;
     padding: 10px 16px;
     font-size: 14px;
   }
-}
+} */
 
 /* ---------------------------------------------------
    Sticky Header / Global Layout
@@ -763,7 +763,7 @@ main,
 }
 
 /* ---------------------------------------------------
-   Responsive Tweaks
+   Responsive
 --------------------------------------------------- */
 
 /* small phones */
@@ -811,11 +811,6 @@ main,
     width: min(320px, 70vw);
   }
 
-  /* any other “mobile” bits you like, e.g. gallery offset, stacking images, etc. */
-  #gallery {
-    --gallery-top-offset: 40px;
-  }
-
   /* stack project overlay images */
   .wb-image {
     flex-direction: column;
@@ -823,6 +818,22 @@ main,
   }
   .wb-image .wb-img {
     max-width: 100%;
+  }
+}
+
+/* Remove gallery top padding on mobile to account for bottom nav */
+@media (max-width: 1000px) {
+  #gallery {
+    padding-top: 0;
+  }
+
+  /* Offset scroll card so it doesn't hide behind bottom nav */
+  .scroll-card {
+    bottom: 48px; /* Move it above the bottom navigation bar */
+  }
+
+  .scroll-card.visible {
+    transform: translateX(-50%) translateY(0);
   }
 }
 

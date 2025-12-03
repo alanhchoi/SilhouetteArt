@@ -190,6 +190,25 @@
 
   const legendSelect = $(".legend-select-mobile");
 
+  // const legendTop = document.getElementById("legend-top");
+  // const hamburger = document.querySelector(".hamburger");
+
+  // hamburger.addEventListener("click", () => {
+  //   legendTop.classList.toggle("active");
+  // });
+  // function cacheLegendHeight() {
+  //   if (!legendTop) return;
+  //   legendTop.style.setProperty(
+  //     "--legend-height",
+  //     legendTop.scrollHeight + "px"
+  //   );
+  // }
+  // cacheLegendHeight();
+
+  // window.addEventListener("resize", () => {
+  //   cacheLegendHeight();
+  // });
+
   // ----------------------------
   // Setup
   // ----------------------------
@@ -198,7 +217,9 @@
   function setupGallery(data) {
     records = data;
 
-    silhouettes = records.filter((r) => haystack(r).includes("silhouette"));
+    silhouettes = records
+      .filter((r) => haystack(r).includes("silhouette"))
+      .filter((r) => r.filename != null && r.filename != undefined); // Add this line
 
     // assign stable, exclusive gender category so counts don't overlap
     silhouettes.forEach((r) => {
@@ -336,6 +357,15 @@
     const visible = $all(".gallery-item").length || 0;
     const selected = $all(".gallery-item.selected").length || 0;
 
+    // Debug logging
+    console.log("updateScrollCard:", {
+      silhouettesLength: silhouettes?.length,
+      recordsLength: records?.length,
+      total,
+      visible,
+      selected,
+    });
+
     const textDiv = cardEl.querySelector(".scroll-card-text");
     let text = `${visible.toLocaleString()} of ${total.toLocaleString()} silhouettes`;
 
@@ -402,19 +432,19 @@
     }
 
     // Update the floating scroll card with the number of visible thumbnails vs total silhouettes
-    const cardEl = document.getElementById("scroll-card");
-    if (cardEl) {
-      const total =
-        silhouettes && silhouettes.length ? silhouettes.length : records.length;
-      const visible = items.length || 0;
-      const textDiv = cardEl.querySelector(".scroll-card-text");
-      const text = `${visible.toLocaleString()} of ${total.toLocaleString()} silhouettes`;
-      if (textDiv) {
-        textDiv.textContent = text;
-      } else {
-        cardEl.textContent = text;
-      }
-    }
+    // const cardEl = document.getElementById("scroll-card");
+    // if (cardEl) {
+    //   const total =
+    //     silhouettes && silhouettes.length ? silhouettes.length : records.length;
+    //   const visible = items.length || 0;
+    //   const textDiv = cardEl.querySelector(".scroll-card-text");
+    //   const text = `${visible.toLocaleString()} of ${total.toLocaleString()} silhouettes`;
+    //   if (textDiv) {
+    //     textDiv.textContent = text;
+    //   } else {
+    //     cardEl.textContent = text;
+    //   }
+    // }
     //////////////////LOAD IMAGES FROM URL INSTEAD////////////////////
     // const html = items
     //   .map((r) => {
@@ -439,7 +469,7 @@
         const fn = field(r, "filename");
         if (r.filename == null || r.filename == undefined) {
           console.log("Missing filename for record:", r);
-          // return "";
+          return "";
         }
         return `
           <div class="gallery-item">

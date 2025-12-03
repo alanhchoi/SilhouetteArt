@@ -1,3 +1,4 @@
+/* Make sticky-header also use flex with order */
 #sticky-header {
   position: fixed;
   top: 0;
@@ -8,6 +9,21 @@
   padding: 12px 24px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+/* On desktop, make create-btn appear after legend-top */
+#sticky-header #headline {
+  order: 1;
+}
+
+#sticky-header #legend-top {
+  order: 2;
+}
+
+#sticky-header .create-btn {
+  order: 3; /* Puts it after legend-top on desktop */
+  margin-left: 1rem;
 }
 
 #sticky-header #headline {
@@ -40,13 +56,13 @@
   -webkit-appearance: none;
   appearance: none;
   position: relative;
-  padding: 8px 14px;
-  background-color: rgba(89, 89, 89, 0.9);
+  padding: 8px 12px;
+  background-color: rgba(109, 109, 109, 0.4);
   color: #d5d5d5;
-  border: none;
+  /* border: 1px solid #858585; */
   border-radius: 4px;
   cursor: pointer;
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 400;
   display: inline-flex;
   align-items: center;
@@ -58,8 +74,8 @@
 .create-btn::before {
   content: "";
   display: inline-block;
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   background-image: url("assets/camera.svg");
   background-size: contain;
   background-repeat: no-repeat;
@@ -77,6 +93,7 @@
 .create-btn:hover {
   background-color: rgba(60, 60, 60, 0.95);
   color: #ffffff;
+  border: none;
   transform: translateY(-1px);
 }
 
@@ -100,11 +117,6 @@
   gap: 0rem;
 }
 
-.legend-icon {
-  width: 52px;
-  height: 52px;
-}
-
 /* filter select */
 #filter,
 .legend-select-mobile {
@@ -115,7 +127,7 @@
   min-width: 145px;
   padding: 8px 38px 8px 12px;
   font-size: 0.7rem;
-  font-weight: 600;
+  font-weight: 400;
   color: #fff;
   background-color: rgb(174, 2, 2);
   border-radius: 4px;
@@ -240,14 +252,36 @@
   transform: scale(0.98);
   color: #cab084;
 }
+
 .legend-btn.active {
   color: #cab084;
 }
 
+.legend-btn[title]::after {
+  content: attr(title);
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.9);
+  color: #ffffff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.65rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.legend-btn:hover::after {
+  opacity: 1;
+}
+
 .legend-icon {
   display: inline-block;
-  width: 70px;
-  height: 70px;
+  width: 50px;
+  height: 50px;
   background-color: currentColor;
   transition: background-color 0.3s ease;
 }
@@ -268,65 +302,151 @@
 }
 
 /* NARROW LAYOUT: phones + tablets + small laptops */
+/* NARROW LAYOUT: phones + tablets + small laptops */
 @media (max-width: 1000px) {
   #sticky-header {
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
 
-  /* Let the row wrap but keep the header compact and tight */
+  .hamburger {
+    display: none; /* Remove hamburger */
+  }
+
+  /* Move legend-top to bottom of screen */
   #legend-top {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #000000;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 6px 8px;
+    display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
-    gap: 0.35rem;
+    justify-content: center;
+    gap: 4px;
+    z-index: 9999;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.3);
+    height: auto;
+    overflow: visible;
   }
 
-  /* show gender dropdown instead of icons */
+  #legend-top.active {
+    height: auto;
+  }
+
+  /* Show gender dropdown instead of icons */
   .legend-select-mobile {
     display: inline-block;
   }
+
   #legend-top .legend-btn {
     display: none;
   }
 
-  /* Shared scaling for dropdowns + buttons */
+  /* Dropdowns - much narrower, around 80-90px */
   #legend-top #filter,
-  #legend-top .legend-select-mobile,
-  #legend-top .view-btn {
-    min-width: 0; /* allow them to shrink */
-    padding: 4px 10px; /* smaller padding */
-    font-size: 0.65rem; /* smaller text */
-    flex: 0 0 auto; /* no weird stretching */
-  }
-
-  #filter,
-  .legend-select-mobile {
-    /* min-width: 0; */
+  #legend-top .legend-select-mobile {
+    flex: 0 0 auto;
     width: 110px;
-    /* max-width: 145px;
-    padding: 6px 32px 6px 10px; */
-    font-size: 0.65rem;
+    background-color: rgba(89, 89, 89, 0.9);
+    font-size: 0.55rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 6px 20px 6px 4px;
+    min-width: 0;
   }
 
-  .view-btn {
-    padding: 6px 8px;
-    font-size: 0.65rem;
-    max-width: 160px;
+  #legend-top #filter:hover,
+  #legend-top .legend-select-mobile:hover,
+  #legend-top #filter:focus,
+  #legend-top .legend-select-mobile:focus {
+    background-color: rgba(60, 60, 60, 0.95);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: none;
+    transform: none;
+  }
+
+  /* Buttons - much narrower, around 60-70px */
+  #legend-top .view-btn,
+  #legend-top .identify-btn {
+    flex: 0 0 auto;
+    width: 65px;
+    background-color: transparent;
+    color: #d5d5d5;
+    padding: 6px 2px;
+    font-size: 0.55rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     justify-content: center;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
+  /* Shorten "View Collection" to "View" */
+  #legend-top #view-btn {
+    font-size: 0;
+  }
+  #legend-top #view-btn::after {
+    content: "View";
+    font-size: 0.55rem;
+  }
+
+  /* Shorten "Reveal a face" to "Reveal" */
+  #legend-top #identify-btn a {
+    font-size: 0;
+  }
+  #legend-top #identify-btn a::after {
+    content: "Reveal";
+    font-size: 0.55rem;
+  }
+
+  /* "Trace" stays as is - already short */
+  #legend-top #morph-btn {
+    font-size: 0.55rem;
+  }
+
+  #legend-top .view-btn:hover,
+  #legend-top .identify-btn:hover {
+    background-color: rgba(60, 60, 60, 0.5);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: none;
+    box-shadow: none;
+  }
+
+  #legend-top .view-btn:disabled,
+  #legend-top .identify-btn:disabled {
+    opacity: 0.4;
+    background-color: transparent;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Keep create button in top right of header */
   .create-btn {
     padding: 6px 8px;
-    position: fixed;
     font-size: 0.65rem;
-    right: 16px;
-    top: 16px;
+    position: relative;
   }
 
   #sticky-header #headline {
     width: 180px;
   }
+
+  /* Add bottom padding to body to prevent content from being hidden behind bottom nav */
+  body {
+    padding-bottom: 80px;
+  }
 }
+
+/* Extra small screens - keep same sizing */
 @media (max-width: 640px) {
+  #legend-top {
+    padding: 6px 4px;
+  }
+
   .headline-img {
     content: url("assets/icon-logo.svg");
     width: 20%;
