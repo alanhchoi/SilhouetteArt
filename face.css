@@ -1,3 +1,12 @@
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 body {
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
     sans-serif;
@@ -273,6 +282,14 @@ h2 {
   transform: translateY(-1px);
 }
 
+.generate-btn:disabled {
+  background: none;
+  color: #888888;
+  box-shadow: none;
+  cursor: default;
+  transform: translateY(0);
+}
+
 .overlay-caption {
   color: #000000;
   text-align: center;
@@ -280,6 +297,27 @@ h2 {
   line-height: 1.4;
   max-width: 100%;
   align-self: center;
+}
+
+#loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+  display: none;
+  z-index: 200;
+
+  .loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #fff;
+    border-bottom-color: #ff3d00;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+  }
 }
 
 /* Tablet - 3 columns */
