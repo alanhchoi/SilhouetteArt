@@ -9,7 +9,7 @@
 }
 
 :root {
-  --overlay-width: min(900px, 94vw);
+  --overlay-width: min(900px, 94%);
   --left-col: 60%;
   --map-max: 560px;
   --device-max: 320px;
@@ -737,6 +737,10 @@ main,
   align-self: flex-start;
 }
 
+.panel-content .overlay-img {
+  display: none;
+}
+
 /* typography */
 .project-panel h2 {
   margin: 0 0 8px;
@@ -760,6 +764,12 @@ main,
   margin-top: 12px;
   display: flex;
   justify-content: flex-end;
+}
+
+.panel-images {
+  flex-direction: row;
+  gap: 8px;
+  display: flex;
 }
 
 /* ---------------------------------------------------
@@ -816,8 +826,37 @@ main,
     flex-direction: column;
     gap: 8px;
   }
+  .panel-images {
+    flex-direction: row;
+    gap: 8px;
+    display: flex;
+  }
+
   .wb-image .wb-img {
-    max-width: 100%;
+    max-width: none;
+    display: block;
+  }
+
+  .wb-image .ledger {
+    width: 40%;
+    object-fit: contain;
+  }
+
+  .project-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--panel-gap);
+    align-items: start;
+  }
+  #vertical-container {
+    width: 100%;
+  }
+
+  .panel-content {
+    width: 100%;
+  }
+  .wb-image .portrait {
+    width: 40%;
   }
 }
 
@@ -851,9 +890,7 @@ main,
     grid-row: 2;
   }
   .panel-image {
-    grid-row: 3;
-    align-items: center;
-    margin-top: 12px;
+    display: none;
   }
   .wb-img {
     max-width: 200px;
@@ -861,6 +898,11 @@ main,
   .panel-image .overlay-img,
   .panel-image .overlay-map {
     max-width: 100%;
+  }
+  .overlay-img {
+    display: block !important;
+    width: 60%;
+    margin-bottom: 40px;
   }
 
   .panel-image img {

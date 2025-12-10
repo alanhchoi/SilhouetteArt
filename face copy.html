@@ -142,7 +142,7 @@
                 const overlayCaption = document.getElementById('overlay-caption');
 
                 // Set the full-size image
-                overlayImage.src = `thumbnails-small/${record.filename}.jpg`;
+                overlayImage.src = record.thumbnail;
                 overlayImage.alt = field(record, 'title') || field(record, 'name') || 'silhouette';
 
 
@@ -180,7 +180,7 @@
                 document.getElementById('loading').style.display = 'block';
 
                 generateBtn.disabled = true;
-                fetch(overlayImage.src, { mode: 'cors', cache: 'no-cache' })
+                fetch(overlayImage.src)
                     .then(response => response.blob())
                     .then(async (blob) => {
                         const url = await runFilter(blob);
@@ -231,7 +231,7 @@
                         return `
             <div class="gallery-item" onclick="openOverlay('${fn}')">
                 <img class="gallery-img"
-                    src="thumbnails-small/${r.filename}.jpg"
+                    src="${r.thumbnail}"
                     alt="${alt.replace(/"/g, "")}"
                     data-filename="${fn}"
                     loading="lazy">
